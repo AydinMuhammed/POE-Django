@@ -55,7 +55,7 @@ POE-Django/
 ├── manage.py                    # Script de gestion Django
 ├── requirements.txt             # Dépendances Python
 ├── README.md                    # Documentation du projet
-├── db.sqlite3                   # Base de données SQLite (ignoré par Git)
+├── db.sqlite3                   # Base de données SQLite (généré après migrate)
 ├── mon_env/                     # Environnement virtuel Python (ignoré par Git)
 │   ├── Scripts/                # Scripts d'activation (Windows)
 │   ├── Lib/                    # Bibliothèques Python installées
@@ -92,7 +92,6 @@ Les éléments suivants sont présents localement mais **non versionnés** grâc
 - `__pycache__/` : Fichiers Python compilés (.pyc)
 - `.vscode/` : Configuration VS Code
 - `*.log` : Fichiers de logs
-```
 
 ## 🌐 URLs disponibles
 
@@ -127,6 +126,9 @@ python manage.py collectstatic
 
 # Lancer les tests
 python manage.py test
+
+# Vérifier la configuration
+python manage.py check
 ```
 
 ### Ajouter une nouvelle application
@@ -134,7 +136,7 @@ python manage.py test
 python manage.py startapp nom_app
 ```
 
-N'oubliez pas d'ajouter la nouvelle application dans `INSTALLED_APPS` dans [`settings.py`](project/settings.py).
+N'oubliez pas d'ajouter la nouvelle application dans `INSTALLED_APPS` dans `settings.py`.
 
 ## 📦 Dépendances
 
@@ -142,6 +144,44 @@ N'oubliez pas d'ajouter la nouvelle application dans `INSTALLED_APPS` dans [`set
 - **asgiref 3.8.1** : Support ASGI pour Django
 - **sqlparse 0.5.3** : Parser SQL pour Django
 - **tzdata 2025.2** : Données de fuseaux horaires
+
+## 🔍 Dépannage
+
+### Erreur "No module named 'django'"
+```bash
+# Vérifiez que l'environnement virtuel est activé
+mon_env\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Erreur de migration
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### Erreur de port déjà utilisé
+```bash
+# Utiliser un autre port
+python manage.py runserver 8001
+```
+
+### Problèmes de cache
+```bash
+# Supprimer les fichiers cache
+find . -name "*.pyc" -delete
+find . -name "__pycache__" -type d -exec rm -rf {} +
+```
+
+## ⚠️ Sécurité
+
+**Important pour la production :**
+
+- Changez la `SECRET_KEY` dans `settings.py`
+- Mettez `DEBUG = False` en production
+- Configurez `ALLOWED_HOSTS` selon votre domaine
+- Utilisez des variables d'environnement pour les données sensibles
+- Configurez HTTPS en production
 
 ## 🤝 Contribution
 
@@ -159,7 +199,12 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 - Assurez-vous que l'environnement virtuel est activé avant d'installer les dépendances
 - Si vous rencontrez des erreurs de modules, vérifiez que Django est bien installé avec `pip list`
+- Le fichier `.gitignore` doit être à la racine du projet pour fonctionner correctement
 
 ## 📞 Support
 
-Pour toute question ou problème, ouvrez une issue sur GitHub.
+Pour toute question ou problème, ouvrez une issue sur GitHub ou contactez l'équipe de développement.
+
+---
+
+**Dernière mise à jour :** Janvier 2025
