@@ -31,7 +31,16 @@ source mon_env/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Configurer la base de données
+### 4. Configuration des variables d'environnement (Optionnel)
+```bash
+# Copier le fichier d'exemple
+cp .env.example .env
+
+# Modifier le fichier .env avec vos propres valeurs
+# Notamment changer la SECRET_KEY
+```
+
+### 5. Configurer la base de données
 ```bash
 # Appliquer les migrations
 python manage.py migrate
@@ -40,7 +49,7 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-### 5. Lancer le serveur de développement
+### 6. Lancer le serveur de développement
 ```bash
 python manage.py runserver
 ```
