@@ -31,7 +31,7 @@ source mon_env/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Configuration des variables d'environnement (Optionnel)
+### 4. Configuration des variables d'environnement
 ```bash
 # Copier le fichier d'exemple
 cp .env.example .env
